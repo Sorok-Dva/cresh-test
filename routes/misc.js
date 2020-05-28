@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/ping',
-  async (req, res, next) => {
+  async (req, res) => {
     let dbQuery = await Sequelize.authenticate()
       .then(() => 'Database is UP')
       .catch(() => 'Database is DOWN');
