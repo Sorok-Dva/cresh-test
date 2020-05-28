@@ -10,6 +10,7 @@ module.exports = {
       },
       transaction_id: {
         type: Sequelize.INTEGER,
+        allowNull: false,
         onDelete: 'CASCADE',
         references: {
           model: 'Transactions',
@@ -17,12 +18,18 @@ module.exports = {
         }
       },
       amount: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
       is_paid: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       planned_date: {
+        type: Sequelize.DATE,
+        allowNull: false
+      },
+      paid_date: {
         type: Sequelize.DATE
       },
       createdAt: {

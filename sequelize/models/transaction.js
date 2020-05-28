@@ -8,7 +8,12 @@ module.exports = (sequelize, DataTypes) => {
     is_completed: DataTypes.BOOLEAN
   }, {});
   Transaction.associate = function(models) {
-    // associations can be defined here
+    Transaction.hasMany(models.Instalment, {
+      foreignKey: 'transaction_id',
+      sourceKey: 'id',
+      as: 'instalments',
+      onDelete: 'CASCADE'
+    })
   };
   return Transaction;
 };
