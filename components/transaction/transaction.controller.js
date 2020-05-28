@@ -42,9 +42,7 @@ Transaction.Create = (req, res, next) => {
     }
 
     return res.status(201).send({ created: !!transaction, transaction, instalments });
-  }).catch(error => {
-    return res.status(200).send({ body: req.body, sequelizeError: error });
-  });
+  }).catch(error => next(new BackError(error)));
 };
 
 /**
@@ -84,15 +82,25 @@ Transaction.TriggerInstalments = (req, res, next) => {
     include: {
       model: Models.Instalment,
       as: 'instalments',
+      required: false,
       where: {
         is_paid: false
-      }
+      },
     }
   }).then(transaction => {
-    if (_.isNil(transaction)) return next(new BackError('Transaction not found or all instalments already paid.', 404));
-    transaction.instalments[0].update({ is_paid: true, paid_date: new Date() }).then(updatedRow => {
-      return res.status(200).send({ transaction, updatedRow });
-    });
+    if (_.isNil(transaction)) return next(new BackError('Transaction not found', 404));
+    if (transaction.instalments.length < 1) {
+      if (!transaction.is_completed)
+        transaction.update({ is_completed: true }).then((updatedRow) => {
+          return res.status(200).send({ transaction: updatedRow });
+        });
+      return res.status(200).send({ transaction });
+    } else {
+      transaction.instalments[0].update({ is_paid: true, paid_date: new Date() }).then(updatedRow => {
+        return res.status(200).send({ transaction, updatedRow });
+      });
+    }
+
   }).catch(error => next(new BackError(error)));
 };
 
