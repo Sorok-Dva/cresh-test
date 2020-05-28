@@ -77,6 +77,3 @@ gen
 # Apache2 logs
 /logs/
 
-# ORM Config
-/sequelize/config/config.json
-
