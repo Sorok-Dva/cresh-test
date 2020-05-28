@@ -9,9 +9,13 @@ npm install
 ```
 
 Create .env file:
-
 ```bash
 mv .env-sample .env
+```
+
+Update Sequelize config file
+```bash
+vi sequelize/config/config.json
 ```
 
 Create local database & migration :
@@ -21,7 +25,7 @@ mysql> CREATE DATABASE cresh_llyam_dev;
 ```
 
 ```bash
-npm run db:migrate;
+npm run db:migrate -- --env development;
 ```
 
 Run local server:
@@ -38,6 +42,18 @@ It should response
 ```
 Service is UP
 Database is UP
+```
+
+## Run tests
+
+Create test db & run migration
+```bash
+mysql> CREATE DATABASE cresh_llyam_test;
+npm run db:migrate -- --env test;
+```
+
+```bash
+ENV=test npm run test
 ```
 
 ### API Documentation
