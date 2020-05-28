@@ -1,9 +1,9 @@
+require('dotenv').config();
 const Sequelize = require('sequelize');
 const Env = require('./env');
-const config = require(`${__dirname}/../sequelize/config/config.json`)[Env.current || process.env.ENV];
+const config = require(`../sequelize/config/config.json`)[Env.current || process.env.ENV];
 
 // eslint-disable-next-line no-console
-config.logging = config.logging ? console.log : null;
 config.pool = {
   max: 5,
   min: 0,
