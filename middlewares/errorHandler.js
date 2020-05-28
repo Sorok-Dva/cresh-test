@@ -5,7 +5,7 @@ const Env = require('../config/env');
 const sendError = (req, res, status, err) => {
   if (res.headersSent) return;
   err.status = status;
-  if (Env.current === 'production' || Env.current === 'pre-prod') {
+  if (Env.current === 'production') {
     delete err.stack;
   }
   return res.status(status).json({ error: err });
