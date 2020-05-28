@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     split: DataTypes.INTEGER,
     is_completed: DataTypes.BOOLEAN
   }, {});
-  Transaction.associate = function(models) {
+  Transaction.associate = function (models) {
     Transaction.hasMany(models.Instalment, {
       foreignKey: 'transaction_id',
       sourceKey: 'id',

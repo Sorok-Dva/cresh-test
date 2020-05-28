@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     planned_date: DataTypes.DATE,
     paid_date: DataTypes.DATE
   }, {});
-  Instalment.associate = function(models) {
+  Instalment.associate = function (models) {
     // associations can be defined here
   };
   return Instalment;
